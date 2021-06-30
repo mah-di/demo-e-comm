@@ -113,5 +113,5 @@ def confirmation(req, validation_id, transaction_id):
         cart.purchased = True
         cart.save()
     
-    messages.success(req, 'Payment Successfull!')
+    messages.success(req, 'Payment Successfull! Redirecting Back to Homepage...')
     return render(req, 'AppPayment/status.html', context={})

@@ -1,4 +1,4 @@
-from django.shortcuts import render
+from django.shortcuts import render, get_object_or_404
 
 
 # Models
@@ -21,3 +21,11 @@ class ProductDetails(DetailView):
     model = Product
     template_name = 'AppShop/product_detail.html'
     context_object_name = 'product'
+
+
+
+def categories(req, category):
+    cat = get_object_or_404(Category, title=category)
+    products = Product.objects.filter(category=cat)
+
+    return render(req, 'AppShop/home.html', context={'products':products})

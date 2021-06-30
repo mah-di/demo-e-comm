@@ -11,6 +11,7 @@ from AppShop.models import Product
 from django.contrib import messages
 
 
+@login_required
 def add_to_cart(req, pk):
     item = get_object_or_404(Product,pk=pk)
     cart = Cart.objects.get_or_create(user=req.user, item=item, purchased=False)[0]
@@ -36,6 +37,7 @@ def add_to_cart(req, pk):
     return redirect('AppShop:home')
 
 
+@login_required
 def cart(req):
     order = Order.objects.filter(user = req.user, ordered=False).first()
     carts = Cart.objects.filter(user=req.user, purchased=False)
@@ -43,6 +45,7 @@ def cart(req):
     return render(req, 'AppOrder/cart.html', context={'order':order, 'carts':carts})
 
 
+@login_required
 def increase(req, pk):
     cart = Cart.objects.get(pk=pk)
     cart.quantity += 1
@@ -52,6 +55,7 @@ def increase(req, pk):
     return redirect(req.META['HTTP_REFERER'])
 
 
+@login_required
 def decrease(req, pk):
     cart = Cart.objects.get(pk=pk)
     cart.quantity -= 1
@@ -61,6 +65,7 @@ def decrease(req, pk):
     return redirect(req.META['HTTP_REFERER'])
 
 
+@login_required
 def remove(req, pk):
     cart = Cart.objects.get(pk=pk)
     cart.delete()

@@ -1,7 +1,7 @@
 {% extends 'base.html' %}
 {% block body_block %}
 
-{% if not user.profile.is_fully_setup %}
+{% if user.is_authenticated and not user.profile.is_fully_setup %}
   <div class="messages container mt-2">
     <div class="alert alert-info" role="alert">
       <span>Please set up you profile information <a href="{% url 'AppLogin:profile' %}" style="text-decoration: none;">here</a></span>
